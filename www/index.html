@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+		.fontout {
+		border-style: double;
+		border-width: thick;
+		}
+		.size {
+		font-size: 1.875em; /* 30px/16=1.875em */
+		}
+		.button {
+		background-color: #4CAF50;
+		border: none;
+		color: white;
+		padding: 100px 80px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 30px;
+		margin: 40px 20px;
+		cursor: pointer;
+		border-radius:50%;
+		}
+		.button:hover {
+		background-color: #3e8e41;
+		}
+		.button span {
+		cursor: pointer;
+		display: inline-block;
+		position: relative;
+		transition: 0.5s;
+		}
+		.button span:after {
+		content: '\00bb';
+		position: absolute;
+		opacity: 0;
+		top: 0;
+		right: -20px;
+		transition: 0.5s;
+		}
+		.button:hover span {
+		padding-right: 25px;
+		}
+		.button:hover span:after {
+		opacity: 1;
+		right: 0;
+		}
+		.button1 {
+		padding: 100px 65px;
+		}
+		.button2 {
+		padding: 100px 90px;
+		}
+		.button3 {
+		padding: 100px 70px;
+		}
+		</style>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<!--控制視窗 -->
+		<link href="css/ratchet.min.css" rel="stylesheet">
+		<!--視窗CSS -->
+		<script src="js/ratchet.min.js"></script>
+		<!-- 彈跳 -->
+		
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+		if(window.DeviceOrientationEvent) {
+		window.addEventListener('deviceorientation', function(event) {
+		var a = document.getElementById('alpha'),
+		b = document.getElementById('beta'),
+		g = document.getElementById('gamma'),
+		alpha = event.alpha,
+		beta = event.beta,
+		gamma = event.gamma;
+		
+		a.innerHTML = Math.round(alpha);
+		b.innerHTML = Math.round(beta);
+		g.innerHTML = Math.round(gamma);
+		
+		}, false);
+		}else{
+		document.querySelector('body').innerHTML = "Your Broswer no support";
+		}
+		
+		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery
+		function log(_battery) {
+		r.innerHTML = (_battery.level * 100)
+		_battery.addEventListener('chargingchange', function() {
+		alert("充電功能正常");
+		}, false)
+		}
+		if (navigator.getBattery) {
+		navigator.getBattery().then(log)
+		} else if (battery) {
+		log(battery)
+		}
+		
+		</script>
+		<title>Phone Dr.</title>
+	</head>
+	<body>
+		<header class="bar bar-nav">
+			<h1 class="title">Phone Dr.</h1>
+		</header>
+		<br/>
+		<br/>
+		<ul class="table-view">
+			<li class="table-view-cell">陀螺儀   <button class="btn" ><a href="#intro">Button</a></button></li>
+			<li class="table-view-cell">震動功能 <button id="vibration" onClick="vibration();" class="btn btn-primary">Button</button></li>
+			<li class="table-view-cell">錄音功能 <button id="audioCapture" onClick="audioCapture();" class="btn btn-positive">Button</button></li>
+			<li class="table-view-cell">錄影功能 <button id="videoCapture" onClick="videoCapture();" class="btn btn-negative">Button</button></li>
+			<li class="table-view-cell">相機功能 <button id="vibration" onClick="imageCapture();" class="btn btn-primary">Button</button></li>
+			<li class="table-view-cell">關於裝置 <button id="audioCapture" onClick="cordovaDevice();" class="btn btn-positive">Button</button></li>
+			<li class="table-view-cell">定位功能 <button id="videoCapture"  onClick="getPosition()" class="btn btn-negative">Button</button></li>
+			<li class="table-view-cell">追蹤功能 <button id="watchPosition" onClick="watchPosition()" class="btn btn-negative">Button</button></li>
+			<li class="table-view-cell">電池狀態 <button class="btn" ><a href="#battery">Button</a></button></li>
+			<li class="table-view-cell">網路測試 <button id="networkInfo" onClick="networkInfo()" class="btn" >Button</button></li>
+		</ul>
+		
+		
+		<div id="intro" class="modal">
+			<header class="bar bar-nav">
+				<a class="icon icon-close pull-right" href="#intro"></a>
+				<h1 class="title">陀螺儀</h1>
+			</header>
+			<div class="content">
+				<div class="content-padded">
+					<h2>左右儀(Z軸):<span id="alpha"></span> </h2>
+					<h2>上下差(X軸):<span id="beta"></span></h2>
+					<h2>水平差(Y軸):<span id="gamma"></span></h2>
+				</div>
+			</div>
+		</div>
+		
+		<div id="battery" class="modal">
+			<header class="bar bar-nav">
+				<a class="icon icon-close pull-right" href="#battery"></a>
+				<h1 class="title">Battery!</h1>
+			</header>
+			<div class="content">
+				<div class="content-padded">
+					電池:<span id="alpha"></span>
+					狀態良好
+				</div>
+			</div>
+		</div>
+		
+		
+		
+	</body>
+</html>
